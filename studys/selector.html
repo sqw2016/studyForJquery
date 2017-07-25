@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jquery选择器</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="../libs/JQuery/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="../libs/plugins/jquery-color.js"></script>
+	<style type="text/css">
+		.classSelector {
+			color: green;
+		}
+		.font50 {
+			font-size: 50px;
+		}
+		.orange {
+			color: orange;
+		}
+		.box {
+			width:80px;
+		}
+	</style>
+</head>
+<body>
+	<div class="orange">
+		<p id="sdljh"></p>
+		<div>等等</div>
+		<p id="cselljh">这是一个div内的p标签</p>
+		<h6>这是一个h6标题元素</h6>
+		<p data-num="123" style="display: none;">123333</p>
+		<p id="cen">这是一个div内的带有id的p标签</p>
+		<p id="cfdsn" class="orange">这是一个div内的带有class的p标签</p>
+	</div>
+	<p>这是一个div的兄弟元素</p>
+	<div id="idSelector">ID选择器</div>
+	<p id="cen" class="orange font50">div外的p标签</p>
+	<div class="classSelector" lang="ch">class选择器 <p>2312</p></div>
+	<img src="../images/1.jpg">
+	<button autofocus="autofocus">按钮1</button>
+	<button id="btn" class="box">按钮2</button>
+	<h1>这是一个标题元素</h1>
+	<form>
+		<input id="name" type="text" name="name" disabled="disabled" />
+		<input id="password" type="password" name="pwd" />
+		<input id="radio" type="radio" name="radio" value="单选" disabled="disabled" />
+		<input id="checkbox" type="checkbox" name="checkbox" value="复选" checked="checked" />
+		<input id="submit" type="submit" name="submit" value="提交" />
+		<input id="reset" type="reset" name="reset" value="重置" />
+		<input id="image" type="image" name="image" />
+		<input id="button" type="button" name="button" value="按钮" />
+		<button>这是一个按钮</button>
+		<input id="file" type="file" name="file" />
+		<select>
+			<option>123</option>
+			<option selected="selected">456</option>
+			<option>345</option>
+			<option>678</option>d
+		</select>
+	</form>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			/*标签选择器，所得结果均为类数组*/
+			/*选择所有p标签*/
+			console.log('选择所有p标签:');
+			console.log($('p'));
+
+			/*选择所有id为cen的p标签*/
+			console.log('选择所有id为cen的p标签:');
+			console.log($('p#cen'));
+
+			/*选择所有class中包含orange的p标签*/
+			console.log('选择所有class中包含orange的p标签:');
+			console.log($('p.font50'));
+
+			/*ID选择器*/
+			/*选取首个id为cen的标签*/
+			console.log('选取首个id为cen的标签:');
+			console.log($('#cen'));
+
+			/*class选择器*/
+			/*选取所有class中包含orange的标签*/
+			console.log('选取所有class中包含orange的标签:');
+			console.log($('.orange'));
+
+			/*组合选择器，将选择器以“,”分隔，会将所有结果返回,不会重复返回*/
+			console.log('返回组合选择器的所有结果:');
+			console.log($('div,p.font50,div#idSelector'));
+
+			/*层级选择器，类似与css的层级样式声明*/
+			/*返回div中所有id为cen的p标签*/
+			console.log('返回div中所有id为cen的p标签:');
+			console.log($('div p#cen'));
+
+			/*父子选择器，选择父元素中所有满足条件的子元素*/
+			/*div中的所有p标签*/
+			console.log('div中的所有p标签:');
+			console.log($('div > p'));
+
+			/*前后选择器，选择某个元素之后紧邻的满足条件的第一个兄弟元素*/
+			/*div之后的第一个p标签*/
+			console.log('div之后的第一个p标签:');
+			console.log($('div + p'));
+
+			/*兄弟选择器，选择某个元素后的所有满足条件的兄弟元素*/
+			/*div后同级的所有p元素*/
+			console.log('div后同级的所有p元素:');
+			console.log($('div ~ p#cen'));
+
+			$('div ~ p#cen').hide();
+
+
+			/***************************************************************************/
+
+			/*基本筛选器*/
+			/*:first 获取第一个匹配的元素*/
+			/*第一个div元素*/
+			console.log('第一个div元素：');
+			console.log($('div:first'));
+
+			console.log('div下的第一个p元素：背景变红');
+			$('div p:first').css('background-color','red');
+
+			/*：not(selector),除了满足selector之外的所有元素*/
+			console.log('div下的所有class中不含orange的p元素');
+			console.log($('div p:not(p.orange)'));
+
+			/*:even 满足条件索引为偶数的元素*/
+			console.log('div中索引为偶数的p元素:');
+			console.log($('div p:even'));
+
+			/*:odd 满足条件索引为奇数的元素*/
+			console.log('div中索引为奇数的p元素:');
+			console.log($('div p:odd'));
+
+			/*:eq(index) 满足条件索引为index的元素*/
+			console.log('div中索引为2的p元素:');
+			console.log($('div p:eq(2)'));
+
+			/*：gt(index) 满足条件索引大于index的元素*/
+			console.log('div中索引大于1的p元素:');
+			console.log($('div p:gt(1)'));
+
+			/*:lt(index) 满足条件索引小于index的元素*/
+			console.log('div中索引小于1的p元素:');
+			console.log($('div p:lt(1)'));
+
+			/*:last 最后一个元素*/
+			console.log('div中最后一个p元素:');
+			console.log($('div p:last'));
+
+			/*:header 满足条件的所有标题元素(h1-h6)*/
+			console.log('所有标题元素:');
+			console.log($(':header'));
+
+			/*:focus 获取焦点的元素*/
+			console.log('当前获取焦点的元素:');
+			console.log($(':focus'));
+
+			$('button#btn').animate({backgroundColor:'red'},5000);
+
+			/*:animated 获取正在进行动画的元素*/  /*必须是要jQuery定义的动画吗？？？？*/
+			console.log('当前正在进行动画的元素:');
+			console.log($(':animated'));
+
+			/*:lang(language) 所有指定语言的满足条件的元素*/
+			console.log('所有语言为ch的标签:');
+			console.log($(':lang(ch)'));
+
+			/*:root 文档的根元素，固定用法，获取到文档根元素html*/
+			console.log('文档的根元素:');
+			$(':root').css('background-color','azure');
+
+
+			/**********************************************************************/
+
+			/*:contains(str) 内容选择器，文本中包含指定内容的所有满足条件的元素*/
+			console.log('文本中包含123的p标签:');
+			console.log($('p:contains(一个)'));
+
+			/*:empty 不含子元素或文本的所有满足条件的空元素*/
+			console.log('空的div元素:');
+			console.log($('div:empty'));
+
+			/*:has(selector) 包含指定元素的所有元素*/
+			console.log('包含p元素的div元素:');
+			console.log($('div:has(p)'));
+
+			/*:parent 满足条件元素的非空元素*/
+			console.log('非空p元素:');
+			console.log($('p:parent'));
+
+			/*********************************************************/
+
+			/*可见性选择器*/
+
+			/*:hidden 不可见的所有满足条件的元素*/
+			console.log('不可见的所有p元素:');
+			console.log($('p:hidden'));
+
+			/*:visible 可见的所有满足条件的元素*/
+			console.log('div中的所有可见的p元素:');
+			console.log($('div p:visible'));
+
+
+			/******************************************************/
+
+			/*属性选择器*/
+			
+			/*[attribute] 包含指定属性的所有满足条件的元素，以解析之后的html为准*/
+			console.log('所有含有style属性的p元素:');
+			console.log($('p[style]'));
+
+			/*[attribute=value] 属性等于指定值的所有元素*/
+			console.log('div中id为cen的所有p元素:');
+			console.log($('div p[id=cen]'));
+
+			/*[attribute != value] 属性不等于指定值或不包含指定属性的所有元素*/
+			console.log('div中所有id不为cen的p元素:');
+			console.log($('div p[id != cen]'));
+
+			/*[attribute ^= value] 属性以value开头的所有满足条件的元素*/
+			console.log('div中id以c开头的所有p元素:');
+			console.log($('div p[id ^= c]'));
+
+			/*[attribute $= value] 属性以value结尾的所有满足条件的元素*/
+			console.log('div中所有id以h结尾的p元素:');
+			console.log($('div p[id $= h]'));
+
+			/*[attribute *= vlaue] 属性包含value的所有满足条件的元素*/
+			console.log('div中所有id中含有l的p元素:');
+			console.log($('div p[id *= l]'));
+
+			/*多个属性选择器组合使用*/
+			console.log('div中id以c开头且class中包含orange的所有p元素:');
+			console.log($('div p[id ^= c][class *= orange]'));
+
+
+			/*********************************************************************/
+
+			/*子选择器*/
+
+			/*:first-child 为第一个子元素且满足条件的元素，文本也是元素*/
+			console.log('为第一个子元素的p元素:');
+			console.log($('p:first-child'));
+
+			/*:last-child 为最后一个子元素的满足条件的元素*/
+			console.log('为最后一个子元素的p元素:');
+			console.log($('p:last-child'));
+
+			/*:first-of-type 所有满足条件的第一次出现的子元素*/
+			console.log('父元素中第一个p元素的集合:');
+			console.log($('p:first-of-type'));
+
+			/*:last-of-type 所有满足条件的最后一次出现的子元素*/
+			console.log('父元素中最后一个p元素的集合:');
+			console.log($('p:last-of-type'));
+
+			/*:nth-child(n|even|odd|3n+2) 取第几个满足条件的子元素集合，可以是数字，偶，奇，简易表达式。*/
+			console.log('父元素中的第3n+1个子p元素集合:');
+			console.log($('p:nth-child(3n+1)'));
+
+			/*:nth-last-child(n|even|odd|3n+2) 取倒数第几个满足条件的子元素集合，可以是数字，偶，奇，简易表达式。*/
+			console.log('父元素中倒数第3n+1个子p元素集合:');
+			console.log($('p:nth-last-child(3n+1)'));
+
+			/*:nth-last-of-type(n|even|odd|3n+2) 倒数第几次出现的满足条件的子元素*/
+			console.log('倒数第2次出现的子p元素集合:');
+			console.log($('p:nth-last-of-type(2)'));
+
+			/*:nth-of-type(n|even|odd|3n+2) 第几次出现的满足条件的子元素*/
+			console.log('第2个p子元素集合:');
+			console.log($('p:nth-of-type(2)'));
+
+			/*:only-child 满足条件且是唯一子元素(不包括文本元素)的元素*/
+			console.log('唯一的p子元素:');
+			console.log($('p:only-child'));
+
+			/*:only-of-type 满足条件且在父元素中唯一存在的子元素*/
+			console.log('唯一存在的div子元素:');
+			console.log($('div:only-of-type'));
+
+			/***********************************************************/
+
+			/*表单选择器*/
+
+			/*:input 所有表单元素，包括input、textarea、select和button*/
+			console.log('所有form下的表单元素:');
+			console.log($('form :input'));
+
+			/*:text 所有类型为text的表单元素*/
+			console.log('form下所有单行文本框:');
+			console.log($('form :text'));
+
+			/*:password 所有密码输入框*/
+			console.log('form下所有密码输入框:');
+			console.log($('form :password'));
+
+			/*:radio 所有单选按钮*/
+			console.log('form下所有单选按钮:');
+			console.log($('form :radio'));
+
+			/*:checkbox 所有复选按钮*/
+			console.log('form下所有复选按钮:');
+			console.log($('form :checkbox'));
+
+			/*:submit 所有提交按钮，包括button标签*/
+			console.log('form下所有提交按钮:');
+			console.log($('form :submit'));
+
+			/*:reset 所有重置按钮*/
+			console.log('form下所有重置按钮:');
+			console.log($('form :reset'));
+
+			/*:button 所有按钮，包含类型为button的input和button标签*/
+			console.log('form下所有按钮:');
+			console.log($('form :button'));
+
+			/*:image 所有类型为image的input图像域*/
+			console.log('form下的所有图像域:');
+			console.log($('form :image'));
+
+			/*:file 所有文件域*/
+			console.log('form下的所有文件域:');
+			console.log($('form :file'));
+
+
+			/******************************************************************/
+
+			/*表单属性选择器*/
+
+			/*:enabled 所有可用表单，包含下拉选项*/
+			console.log('所有可用表单:');
+			console.log($(':enabled'));
+
+			/*:disabled 所有不可用表单*/
+			console.log('所有不可用表单:');
+			console.log($(':disabled'));
+
+			/*:checked 所有选中状态的表单，被选中元素(复选框、单选框等，select中的option)*/
+			console.log('所有选中状态的表单:');
+			console.log($(':checked'));
+
+			/*:selected 所有选中的下拉选项*/
+			console.log('所有选中的下拉选项:');
+			console.log($(':selected'));
+
+
+
+			/*******************************************************************************/
+
+			/*$.escapeSelector(str)用于查找class中包含css特殊字符的元素*/
+
+
+
+
+
+		});
+	</script>
+</body>
+</html>
